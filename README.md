@@ -1,19 +1,27 @@
 # West Jupiter — Shimmer × Seadrill
 
-Unidade documental **West Jupiter**, com acesso pela Shimmer Platform em Cloudflare Pages.
+Unidade documental **West Jupiter**, com acesso pelo portal Shimmer em Cloudflare Pages.
 
-## Estado inicial
-Repositório inicializado sem dados documentais. **Não existem aqui equipamentos cadastrados, PDFs, inspeções, categorias concluídas ou apontamentos NR-13 importados**. Não copiar dados técnicos da West Polaris ou da West Auriga para esta unidade.
+## Digital Records criado
+
+A árvore documental oficial foi iniciada em [`documentos/POR_EQUIPAMENTO/0.MODELO`](documentos/POR_EQUIPAMENTO/0.MODELO/README.md), reproduzindo as **13 categorias** utilizadas no modelo West Auriga, com os nomes exatos.
+
+- Origem do modelo: `orangecodedigital-del/prontuario-nr13-organizado/documentos/POR_EQUIPAMENTO/0.MODELO`.
+- Inventário inicial: [`controle/INVENTARIO_WJUPITER.json`](controle/INVENTARIO_WJUPITER.json).
+- Instruções de organização por TAG: [`docs/FLUXO_RECEBIMENTO.md`](docs/FLUXO_RECEBIMENTO.md).
+
+**Nenhuma TAG ou documento foi importado nesta etapa.** As pastas de cada vaso serão criadas somente após o recebimento e identificação de documentos autênticos da West Jupiter.
 
 ## Portal
-- Portal: https://shimmer-4j1.pages.dev/
-- Rota dedicada: https://shimmer-4j1.pages.dev/wjupiter/
-- Aplicação Cloudflare: `orangecodedigital-del/wpolaris`, branch `shimmer-cloudflare`
+
+- Portal Shimmer: https://shimmer-4j1.pages.dev/
+- Acesso da unidade: https://shimmer-4j1.pages.dev/wjupiter/
+- Código do portal: `orangecodedigital-del/wpolaris`, branch `shimmer-cloudflare`
 - Usuário: `wjupiter`
-- Senha: configurar somente como segredo `WJ_PORTAL_PASSWORD` no Cloudflare. **Não commitar a senha**.
-- Sessão HMAC isolada sob `/wjupiter/`; rate limiting no D1 compartilhado.
+- Senha exclusivamente no segredo Cloudflare `WJ_PORTAL_PASSWORD`; nunca armazenar no GitHub.
 
-## Organização documental futura
-Para a etapa de recebimento, inspecionar primeiro o acervo original da West Jupiter e a estrutura `0.MODELO` em uso nas demais unidades, sem deduzir quantidades ou pendências e sem transferir PDFs confidenciais para repositórios públicos. Registrar origem, versão, TAG, hash e evidência antes de qualquer conclusão NR-13. O Digital Records e a Análise NR-13 da Jupiter serão preenchidos somente a partir de documentos reais.
+## Atenção: privacidade
 
-O código da interface e autenticação da Jupiter fica no portal Shimmer, segregado das demais unidades.
+**Este repositório está público.** Pastas-modelo e índices vazios podem ser preparados, mas **não publicar PDFs técnicos/confidenciais** até o repositório ser privado ou haver outra solução de armazenamento privado. Tokens, senhas, relatórios sensíveis e documentos técnicos não devem ser enviados a repositórios públicos.
+
+Não transportar dados, nomes de vasos, pendências ou arquivos das demais unidades para a Jupiter.

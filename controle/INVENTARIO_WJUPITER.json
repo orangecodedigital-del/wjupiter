@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "unit": "West Jupiter",
+  "unit_slug": "wjupiter",
+  "source": "orangecodedigital-del/wjupiter",
+  "equipment_root": "documentos/POR_EQUIPAMENTO",
+  "template": "documentos/POR_EQUIPAMENTO/0.MODELO",
+  "categories": [
+    "01. TECHNICAL SPECIFICATION",
+    "02. MAWP",
+    "03. DRAWING",
+    "04. PRESSURE TEST",
+    "05. EXTERNAL INSPECTION",
+    "06. INTERNAL INSPECTION",
+    "07. NDT",
+    "08. SAFETY DEVICE",
+    "09. INSTRUMENTS",
+    "10. ORIGINAL DOCUMENTS",
+    "11. TECHNICAL INSPECTION RECOMMENDATION",
+    "12.  ANTI-LOCK DEVICE (DCBI)",
+    "13. OPERATING MANUAL"
+  ],
+  "equipment": [],
+  "files": [],
+  "pending_classification": [],
+  "note": "Inicializado sem documentos nem equipamentos; nenhum item técnico ou pendência foi presumido."
+}
