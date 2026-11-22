@@ -1,27 +1,30 @@
 # West Jupiter — Shimmer × Seadrill
 
-Unidade documental **West Jupiter**, com acesso pelo portal Shimmer em Cloudflare Pages.
+Unidade documental **West Jupiter**, com portal no Cloudflare Pages e acervo físico centralizado no **Google Drive privado**.
 
-## Digital Records criado
+## Fonte única de documentos — decisão de 22/11/2026
 
-A árvore documental oficial foi iniciada em [`documentos/POR_EQUIPAMENTO/0.MODELO`](documentos/POR_EQUIPAMENTO/0.MODELO/README.md), reproduzindo as **13 categorias** utilizadas no modelo West Auriga, com os nomes exatos.
+Todos os PDFs técnicos e originais da West Jupiter serão armazenados **exclusivamente** na pasta privada **WEST JUPITER — DIGITAL RECORDS (NR-13)**, no Google Drive da conta proprietária.
 
-- Origem do modelo: `orangecodedigital-del/prontuario-nr13-organizado/documentos/POR_EQUIPAMENTO/0.MODELO`.
-- Inventário inicial: [`controle/INVENTARIO_WJUPITER.json`](controle/INVENTARIO_WJUPITER.json).
-- Instruções de organização por TAG: [`docs/FLUXO_RECEBIMENTO.md`](docs/FLUXO_RECEBIMENTO.md).
+- `0.MODELO/`: 13 categorias oficiais copiadas da West Auriga;
+- `00. TRIAGEM DOCUMENTAL/`: documentos cujo vínculo de TAG/categoria ainda não foi verificado;
+- `<TAG DO VASO>/`: criado somente após identificação real do equipamento, com as mesmas 13 categorias.
 
-**Nenhuma TAG ou documento foi importado nesta etapa.** As pastas de cada vaso serão criadas somente após o recebimento e identificação de documentos autênticos da West Jupiter.
+**Não duplicar o mesmo acervo de PDFs no GitHub e no Drive**. O GitHub recebe apenas código, documentos não confidenciais de modelo e instruções operacionais. O inventário público em `controle/INVENTARIO_WJUPITER.json` permanece vazio enquanto não houver um índice privado apropriado; jamais inserir nomes de PDFs internos ou TAGs sensíveis num repositório público.
 
-## Portal
+O [modelo versionado no GitHub](documentos/POR_EQUIPAMENTO/0.MODELO/README.md) existe somente para definir o padrão das categorias e **não** representa armazenamento de documentos técnicos.
+
+## Integração com o portal
 
 - Portal Shimmer: https://shimmer-4j1.pages.dev/
-- Acesso da unidade: https://shimmer-4j1.pages.dev/wjupiter/
-- Código do portal: `orangecodedigital-del/wpolaris`, branch `shimmer-cloudflare`
-- Usuário: `wjupiter`
-- Senha exclusivamente no segredo Cloudflare `WJ_PORTAL_PASSWORD`; nunca armazenar no GitHub.
+- Área da unidade: https://shimmer-4j1.pages.dev/wjupiter/
+- Código Cloudflare: `orangecodedigital-del/wpolaris`, branch `shimmer-cloudflare`
+- Usuário: `wjupiter`; senha configurada apenas no segredo `WJ_PORTAL_PASSWORD`.
 
-## Atenção: privacidade
+**Situação da integração:** a API atual do portal ainda consulta a árvore do GitHub. O repositório foi preparado antes da escolha pelo Drive. A sincronização do acervo privado do Drive para o Digital Records precisa ser configurada antes de declarar a interface integrada. Não disponibilizar arquivos de Drive de forma pública nem expor tokens no navegador.
 
-**Este repositório está público.** Pastas-modelo e índices vazios podem ser preparados, mas **não publicar PDFs técnicos/confidenciais** até o repositório ser privado ou haver outra solução de armazenamento privado. Tokens, senhas, relatórios sensíveis e documentos técnicos não devem ser enviados a repositórios públicos.
+## Recebimento e segurança
 
-Não transportar dados, nomes de vasos, pendências ou arquivos das demais unidades para a Jupiter.
+Consultar [`docs/FLUXO_RECEBIMENTO.md`](docs/FLUXO_RECEBIMENTO.md). Preservar PDF original, revisões, fonte e evidências. **Não deduzir TAGs ou pendências NR-13 pela simples ausência num lote.**
+
+Este repositório permanece **público**; não subir PDFs técnicos, dados confidenciais, certificados ou segredos aqui.

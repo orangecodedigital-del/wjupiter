@@ -1,27 +1,15 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "unit": "West Jupiter",
   "unit_slug": "wjupiter",
-  "source": "orangecodedigital-del/wjupiter",
-  "equipment_root": "documentos/POR_EQUIPAMENTO",
-  "template": "documentos/POR_EQUIPAMENTO/0.MODELO",
-  "categories": [
-    "01. TECHNICAL SPECIFICATION",
-    "02. MAWP",
-    "03. DRAWING",
-    "04. PRESSURE TEST",
-    "05. EXTERNAL INSPECTION",
-    "06. INTERNAL INSPECTION",
-    "07. NDT",
-    "08. SAFETY DEVICE",
-    "09. INSTRUMENTS",
-    "10. ORIGINAL DOCUMENTS",
-    "11. TECHNICAL INSPECTION RECOMMENDATION",
-    "12.  ANTI-LOCK DEVICE (DCBI)",
-    "13. OPERATING MANUAL"
-  ],
+  "source_of_truth": "google_drive",
+  "source_of_truth_policy": "all_original_documents_in_one_private_drive_root",
+  "drive_root_name": "WEST JUPITER — DIGITAL RECORDS (NR-13)",
+  "model": "13 categorias da pasta 0.MODELO da West Auriga",
+  "github_role": "apenas codigo do portal, modelo e instrucoes; nao enviar PDFs tecnicos a este repositorio publico",
   "equipment": [],
   "files": [],
   "pending_classification": [],
-  "note": "Inicializado sem documentos nem equipamentos; nenhum item técnico ou pendência foi presumido."
+  "status": "modelo e area de triagem criados no Drive; zero equipamentos e zero PDFs recebidos",
+  "portal_status": "API atual do Cloudflare ainda consulta o GitHub; integracao ao Drive requer configuracao privada adicional, sem expor arquivos"
 }
