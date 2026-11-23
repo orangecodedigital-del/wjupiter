@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0a2430">
+  <meta name="description" content="West Jupiter · Digital Records e gestão documental NR-13 por equipamento.">
+  <title>West Jupiter | Document Control Center</title>
+  <link rel="icon" href="/wjupiter/assets/wj-favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/wjupiter/jupiter.css?v=20261122-drive-private-v1">
+  <script defer src="/wjupiter/app.js?v=20261122-drive-private-v1"></script>
+</head>
+<body>
+<div class="application">
+  <div class="mobile-shade" id="mobile-shade" hidden></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="side-brand"><div class="wa-mark">WJ<small>13</small></div><div><strong>WEST JUPITER</strong><small>DOCUMENT CONTROL CENTER</small></div></div>
+    <div class="side-label">WORKSPACE / UNIDADE</div>
+    <nav class="nav-main" aria-label="Navegação principal">
+      <button type="button" data-panel="overview" class="active" aria-current="page"><span>◫</span> Visão geral</button>
+      <button type="button" data-panel="digital-records"><span>▣</span> Digital Records <b id="nav-digital">0</b></button>
+      <button type="button" data-panel="control-sheet"><span>▦</span> Control Sheet</button>
+      <button type="button" data-panel="analysis"><span>▤</span> Análise NR-13</button>
+      <button type="button" data-panel="pending"><span>▥</span> Relatório de pendências</button>
+      <button type="button" data-panel="presentation"><span>▣</span> Apresentação</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <span class="secured">● ACERVO CORPORATIVO RESTRITO</span>
+      <p>Documentos identificados por TAG. A organização não equivale à conformidade NR-13.</p>
+      <a href="/wjupiter/logout">Encerrar sessão ↗</a>
+    </div>
+  </aside>
+  <div class="stage">
+    <header class="topbar">
+      <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <div class="top-breadcrumb">SHIMMER <i>/</i> SEADRILL <i>/</i> <strong>WEST JUPITER</strong></div>
+      <div class="top-right">
+        <span class="private"><span class="small-dot"></span> ACESSO PRIVADO</span>
+        <img class="brand-shimmer" src="/wjupiter/assets/shimmer-logo-transparent.png" alt="Shimmer" loading="eager">
+        <img class="brand-seadrill" src="/wjupiter/assets/seadrill-logo-transparent.svg" alt="Seadrill" loading="eager">
+      </div>
+    </header>
+    <main id="content">
+      <section class="panel" id="overview">
+        <div class="hero">
+          <div class="hero-content">
+            <span class="eyebrow">NR-13 / CONTROLE DOCUMENTAL</span>
+            <span class="hero-caption">DRILLSHIP · WEST JUPITER / UNIT PORTAL</span>
+            <h1>West <em>Jupiter.</em></h1>
+            <p>Documentação técnica organizada por equipamento, seguindo o modelo de 13 categorias e preservando a rastreabilidade dos arquivos originais.</p>
+            <div class="hero-actions"><button type="button" class="btn primary" id="open-digital">Explorar prontuários <span>↗</span></button></div>
+          </div>
+          <div class="hero-footer"><span>SHIMMER × SEADRILL</span><span>DOCUMENT CONTROL / 2026</span></div>
+        </div>
+        <div class="sectionline"><span>01 / VISÃO DO ACERVO</span></div>
+        <div class="model-info wj-summary" id="overview-review" aria-live="polite">
+          <strong>Digital Records · West Jupiter</strong>
+          <p>Consultando a estrutura documental da unidade.</p>
+        </div>
+      </section>
+      <section class="panel" id="digital-records" hidden>
+        <div class="panel-heading">
+          <div><span class="section-eyebrow">02 / ARQUIVO DOCUMENTAL</span><h1>Digital <em>Records.</em></h1>
+            <p>Prontuários da West Jupiter organizados por TAG, com as 13 categorias documentais padronizadas.</p></div>
+          <span class="meta-count" id="wj-total">0 equipamentos</span>
+        </div>
+        <div class="searchbar">
+          <label class="searchbox"><span>⌕</span>
+            <input id="wj-query" type="search" placeholder="Buscar TAG ou documento já consultado" aria-label="Buscar no Digital Records" autocomplete="off">
+          </label>
+        </div>
+        <div class="explorer-layout">
+          <aside class="vessel-rail">
+            <div class="rail-heading"><span>EQUIPAMENTOS</span><strong class="wj-rail-count" id="wj-rail-count">0</strong></div>
+            <div class="vessel-list" id="wj-vessels" aria-live="polite"><p class="wj-rail-empty">Carregando...</p></div>
+          </aside>
+          <div class="explorer-content">
+            <div class="selected-head">
+              <div><span class="section-eyebrow">DIGITAL RECORDS / WEST JUPITER</span>
+                <h2 class="wj-focus-title" id="wj-selected">Selecione um vaso</h2>
+                <p id="wj-intro">Selecione uma TAG para consultar suas pastas e documentos.</p>
+              </div>
+            </div>
+            <div class="folder-workspace">
+              <div class="folder-toolbar">
+                <nav class="folder-breadcrumb" id="wj-breadcrumb" aria-label="Caminho do Digital Records">West Jupiter / Digital Records</nav>
+                <span class="folder-total" id="wj-doc-count">—</span>
+                <div class="folder-toolbar-actions">
+                  <button type="button" id="wj-expand-all">EXPANDIR TODAS</button>
+                  <button type="button" id="wj-collapse-all">RECOLHER TODAS</button>
+                </div>
+              </div>
+              <div id="wj-folders" class="folder-tree wj-visiting" aria-live="polite">
+                <p class="empty-state">Selecione um equipamento para visualizar o prontuário.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="panel" id="control-sheet" hidden>
+        <div class="panel-heading"><div><span class="section-eyebrow">03 / CONTROLE DE VENCIMENTOS</span><h1>Control <em>Sheet.</em></h1><p>Controle de inspeções e calibrações conforme os documentos e a planilha específica da West Jupiter.</p></div></div>
+        <div class="empty-state wj-static-empty"><strong>Planilha ainda não recebida.</strong><p>Os vencimentos serão apresentados somente após a importação e conferência da Control Sheet da unidade.</p></div>
+      </section>
+      <section class="panel" id="analysis" hidden>
+        <div class="panel-heading"><div><span class="section-eyebrow">04 / CONTROLE DE PENDÊNCIAS NR-13</span><h1>Análise <em>NR-13.</em></h1><p>Avaliação dos documentos por TAG, com rastreabilidade às evidências da West Jupiter.</p></div></div>
+        <div class="empty-state wj-static-empty"><strong>Aguardando documentação para análise.</strong><p>Os apontamentos serão registrados somente após a revisão dos relatórios e documentos originais da unidade.</p></div>
+      </section>
+      <section class="panel" id="pending" hidden>
+        <div class="panel-heading"><div><span class="section-eyebrow">05 / RELATÓRIO CONSOLIDADO</span><h1>Relatório de <em>pendências.</em></h1><p>Relação de apontamentos ativos da Análise NR-13, com TAG e evidências correspondentes.</p></div></div>
+        <div class="empty-state wj-static-empty"><strong>Sem pendências documentais verificadas até o momento.</strong><p>A ausência de dados cadastrados não representa conclusão de conformidade; o acervo ainda não foi auditado.</p></div>
+      </section>
+      <section class="panel" id="presentation" hidden>
+        <div class="panel-heading"><div><span class="section-eyebrow">06 / APRESENTAÇÃO TÉCNICA</span><h1>Apresentação.</h1><p>Apresentação da análise NR-13 e das evidências documentais da West Jupiter.</p></div></div>
+        <div class="empty-state wj-static-empty"><strong>Apresentação ainda não elaborada.</strong><p>Os registros visuais serão incluídos após o recebimento dos documentos e identificação dos apontamentos.</p></div>
+      </section>
+      <footer>WEST JUPITER · DOCUMENT CONTROL CENTER <span>SHIMMER × SEADRILL / NR-13</span></footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

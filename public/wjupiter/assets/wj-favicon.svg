@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<rect width="64" height="64" rx="9" fill="#0c303b"/>
+<rect x="7" y="7" width="50" height="50" rx="5" fill="#164951" stroke="#7fb2a0"/>
+<text x="32" y="42" font-size="25" text-anchor="middle" fill="#f5fbf9" font-family="Arial,sans-serif" font-weight="800">WJ</text>
+</svg>

@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS auth_attempts (
+ identity_key TEXT PRIMARY KEY,
+ attempts INTEGER NOT NULL DEFAULT 0,
+ blocked_until INTEGER NOT NULL DEFAULT 0
+);

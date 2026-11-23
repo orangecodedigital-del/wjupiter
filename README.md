@@ -1,30 +1,25 @@
-# West Jupiter — Shimmer × Seadrill
+# West Jupiter — Digital Records (Shimmer × Seadrill)
+Portal documental da unidade **West Jupiter**, com acervo técnico mantido exclusivamente no **Google Drive privado**.
 
-Unidade documental **West Jupiter**, com portal no Cloudflare Pages e acervo físico centralizado no **Google Drive privado**.
+## Código do site
+A branch **main** deste repositório contém agora a interface do portal em `public/wjupiter/` e a API privada em `functions/wjupiter/api/`. A interface mantém o layout da West Jupiter/Shimmer, 13 categorias e navegação por TAG.
 
-## Fonte única de documentos — decisão de 22/11/2026
+- Página de acesso: `/wjupiter/`.
+- `GET /wjupiter/api/records`: lista pastas VP do Drive, sem varrer todos os PDFs.
+- `GET /wjupiter/api/equipment?tag=VP-000`: carrega sob demanda as 13 categorias daquele vaso.
+- `GET /wjupiter/api/file?path=...`: valida pertencimento do documento à categoria e o transmite após autenticação.
 
-Todos os PDFs técnicos e originais da West Jupiter serão armazenados **exclusivamente** na pasta privada **WEST JUPITER — DIGITAL RECORDS (NR-13)**, no Google Drive da conta proprietária.
+**Nada aqui torna o site automaticamente publicado.** O projeto Cloudflare Pages precisa usar esta branch e a pasta de saída `public`. O endereço histórico `https://shimmer-4j1.pages.dev/wjupiter/` só passará a usar esta versão se o projeto de produção for configurado para publicar este código (ou se houver uma integração equivalente). Nenhuma alteração foi feita no repositório `wpolaris`.
 
-- `0.MODELO/`: 13 categorias oficiais copiadas da West Auriga;
-- `00. TRIAGEM DOCUMENTAL/`: documentos cujo vínculo de TAG/categoria ainda não foi verificado;
-- `<TAG DO VASO>/`: criado somente após identificação real do equipamento, com as mesmas 13 categorias.
+## Fonte e segurança
+- Fonte única: pasta privada **WEST JUPITER — DIGITAL RECORDS (NR-13)** no Google Drive.
+- **Não publicar PDFs ou listagens documentais no GitHub**. Este repositório continua público e contém apenas o código, o modelo de 13 categorias e documentação não sensível.
+- A API do Google Drive roda somente no servidor, com credenciais de uma conta de serviço Google armazenadas em segredos da Cloudflare.
+- As rotas do site e as APIs exigem login de unidade, cookie assinado e limitação de tentativas no banco D1.
+- Ausência de um PDF no pacote não comprova que o documento não existe.
 
-**Não duplicar o mesmo acervo de PDFs no GitHub e no Drive**. O GitHub recebe apenas código, documentos não confidenciais de modelo e instruções operacionais. O inventário público em `controle/INVENTARIO_WJUPITER.json` permanece vazio enquanto não houver um índice privado apropriado; jamais inserir nomes de PDFs internos ou TAGs sensíveis num repositório público.
+## Ativação
+Consultar [docs/INTEGRACAO_DRIVE_PRIVADO.md](docs/INTEGRACAO_DRIVE_PRIVADO.md) para parâmetros de Cloudflare Pages, compartilhamento de pasta e testes de segurança. A conexão fica fechada até configurar os segredos e o binding D1.
 
-O [modelo versionado no GitHub](documentos/POR_EQUIPAMENTO/0.MODELO/README.md) existe somente para definir o padrão das categorias e **não** representa armazenamento de documentos técnicos.
-
-## Integração com o portal
-
-- Portal Shimmer: https://shimmer-4j1.pages.dev/
-- Área da unidade: https://shimmer-4j1.pages.dev/wjupiter/
-- Código Cloudflare: `orangecodedigital-del/wpolaris`, branch `shimmer-cloudflare`
-- Usuário: `wjupiter`; senha configurada apenas no segredo `WJ_PORTAL_PASSWORD`.
-
-**Situação da integração:** a API atual do portal ainda consulta a árvore do GitHub. O repositório foi preparado antes da escolha pelo Drive. A sincronização do acervo privado do Drive para o Digital Records precisa ser configurada antes de declarar a interface integrada. Não disponibilizar arquivos de Drive de forma pública nem expor tokens no navegador.
-
-## Recebimento e segurança
-
-Consultar [`docs/FLUXO_RECEBIMENTO.md`](docs/FLUXO_RECEBIMENTO.md). Preservar PDF original, revisões, fonte e evidências. **Não deduzir TAGs ou pendências NR-13 pela simples ausência num lote.**
-
-Este repositório permanece **público**; não subir PDFs técnicos, dados confidenciais, certificados ou segredos aqui.
+## Organização no Drive
+As TAGs reais possuem pastas independentes com as 13 categorias oficiais. Os ZIPs originais sem PDFs continuam preservados na triagem. Os dados não são copiados de outras unidades.
