@@ -19,21 +19,35 @@ function encoded(bytes){
  return btoa(binary).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/g,"");
 }
 function validId(id){return typeof id==="string"&&ID.test(id);}
-function requiredEnv(env){
- if(!env.WJ_GOOGLE_CLIENT_EMAIL||!env.WJ_GOOGLE_PRIVATE_KEY||!validId(env.WJ_DRIVE_ROOT_ID))
-  throw new DriveFailure("Google Drive privado não configurado. Verifique as credenciais e a pasta raiz.",503);
+/* A conta de serviço precisa ter acesso LEITOR à pasta raiz West Jupiter.
+ * Prefere credenciais exclusivas da unidade; permite reutilizar a infraestrutura
+ * Google já configurada no Shimmer quando a pasta Jupiter foi compartilhada.
+ * Nunca transfere nomes ou arquivos para Polaris/Auriga.
+ */
+function credentials(env){
+ if(env.WJ_GOOGLE_CLIENT_EMAIL&&env.WJ_GOOGLE_PRIVATE_KEY)
+  return {email:String(env.WJ_GOOGLE_CLIENT_EMAIL),key:String(env.WJ_GOOGLE_PRIVATE_KEY)};
+ const raw=env.WJ_GOOGLE_SERVICE_ACCOUNT_JSON||env.WA_GOOGLE_SERVICE_ACCOUNT_JSON||env.WP_GOOGLE_SERVICE_ACCOUNT_JSON;
+ if(!raw)throw new DriveFailure("Credenciais privadas Google Drive não configuradas na Cloudflare.",503);
+ try{
+  const c=JSON.parse(raw);
+  if(c.type!=="service_account"||!c.client_email||!c.private_key)throw Error("Invalid service account");
+  return {email:c.client_email,key:c.private_key};
+ }catch{
+  throw new DriveFailure("Configuração da conta de serviço Google inválida.",503);
+ }
 }
 async function token(env){
- requiredEnv(env);
- if(accessCache.token&&accessCache.email===env.WJ_GOOGLE_CLIENT_EMAIL&&Date.now()<accessCache.expires-120000)return accessCache.token;
+ const creds=credentials(env);
+ if(accessCache.token&&accessCache.email===creds.email&&Date.now()<accessCache.expires-120000)return accessCache.token;
  try{
-  const pem=env.WJ_GOOGLE_PRIVATE_KEY.replace(/\\n/g,"\n");
+  const pem=creds.key.replace(/\\n/g,"\n");
   const base64=pem.replace(/-----BEGIN PRIVATE KEY-----|-----END PRIVATE KEY-----|\s/g,"");
   const key=await crypto.subtle.importKey("pkcs8",Uint8Array.from(atob(base64),c=>c.charCodeAt(0)),{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},false,["sign"]);
   const now=Math.floor(Date.now()/1000);
   const header=encoded(new TextEncoder().encode(JSON.stringify({alg:"RS256",typ:"JWT"})));
   const claims=encoded(new TextEncoder().encode(JSON.stringify({
-   iss:env.WJ_GOOGLE_CLIENT_EMAIL,scope:"https://www.googleapis.com/auth/drive.readonly",
+   iss:creds.email,scope:"https://www.googleapis.com/auth/drive.readonly",
    aud:"https://oauth2.googleapis.com/token",iat:now,exp:now+3600
   })));
   const unsigned=header+"."+claims;
@@ -42,7 +56,7 @@ async function token(env){
   const r=await fetch("https://oauth2.googleapis.com/token",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body,redirect:"error"});
   if(!r.ok)throw new DriveFailure("Credencial Google inválida ou API não habilitada.",503);
   const o=await r.json();if(!o.access_token||!o.expires_in)throw new DriveFailure("Google não forneceu token de acesso.",503);
-  accessCache={email:env.WJ_GOOGLE_CLIENT_EMAIL,token:o.access_token,expires:Date.now()+Number(o.expires_in)*1000};
+  accessCache={email:creds.email,token:o.access_token,expires:Date.now()+Number(o.expires_in)*1000};
   return o.access_token;
  }catch(e){if(e instanceof DriveFailure)throw e;throw new DriveFailure("Não foi possível autenticar a conta de serviço Google.",503);}
 }
@@ -72,10 +86,32 @@ export async function listChildren(env,id){
  }while(next);
  return result;
 }
+/* Descobre o acervo pelo nome somente se o binding WJ_DRIVE_ROOT_ID
+ * ainda não estiver definido. Isso exige compartilhamento privado
+ * explícito com a conta de serviço Google e evita IDs sensíveis no Git.
+ */
+async function resolveRoot(env){
+ if(env.WJ_DRIVE_ROOT_ID){
+  if(!validId(env.WJ_DRIVE_ROOT_ID))throw new DriveFailure("ID da raiz West Jupiter inválido.",503);
+  return env.WJ_DRIVE_ROOT_ID;
+ }
+ const q=new URLSearchParams({
+  q:"name = 'WEST JUPITER — DIGITAL RECORDS (NR-13)' and mimeType = '"+FOLDER+"' and trashed = false",
+  fields:"files(id,name,mimeType),nextPageToken,incompleteSearch",
+  pageSize:"100",supportsAllDrives:"true",includeItemsFromAllDrives:"true"
+ });
+ const response=await call(env,"https://www.googleapis.com/drive/v3/files?"+q);
+ const body=await response.json();
+ if(body.incompleteSearch||body.nextPageToken)throw new DriveFailure("Localização da pasta privada retornou resultados incompletos.",503);
+ const folders=(body.files||[]).filter(f=>f.mimeType===FOLDER&&f.name==="WEST JUPITER — DIGITAL RECORDS (NR-13)"&&validId(f.id));
+ if(folders.length!==1)throw new DriveFailure("Pasta privada West Jupiter não encontrada ou ambígua. Compartilhe a pasta com a conta de serviço e configure WJ_DRIVE_ROOT_ID.",503);
+ return folders[0].id;
+}
 export async function listEquipment(env){
- requiredEnv(env);
- const root=await listChildren(env,env.WJ_DRIVE_ROOT_ID);
- return root.filter(x=>x.mimeType===FOLDER&&TAG.test(x.name)).sort((a,b)=>a.name.localeCompare(b.name,"pt-BR",{numeric:true}));
+ const root=await listChildren(env,await resolveRoot(env));
+ const equipment=root.filter(x=>x.mimeType===FOLDER&&TAG.test(x.name)).sort((a,b)=>a.name.localeCompare(b.name,"pt-BR",{numeric:true}));
+ if(!equipment.length)throw new DriveFailure("Acesso ao Drive estabelecido, mas nenhuma TAG VP foi localizada na raiz esperada.",503);
+ return equipment;
 }
 export async function findEquipment(env,tag){
  if(!TAG.test(tag))throw new DriveFailure("TAG inválida.",400);
