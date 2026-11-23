@@ -50,3 +50,10 @@ Se o projeto já possui `SHIMMER_SESSION_SECRET` pode ser mantido como fallback,
 - Polaris e Auriga não são consultadas nem alteradas.
 
 **A publicação do código não equivale à verificação do site em produção**. Executar os testes acima após configurar Cloudflare e compartilhar a pasta com a conta de serviço.
+
+## Recuperação da integração em ambiente Shimmer existente
+A API aceita, em ordem de prioridade, as credenciais exclusivas `WJ_GOOGLE_CLIENT_EMAIL` + `WJ_GOOGLE_PRIVATE_KEY`; alternativamente `WJ_GOOGLE_SERVICE_ACCOUNT_JSON`; ou as contas de serviço já presentes no portal: `WA_GOOGLE_SERVICE_ACCOUNT_JSON` e `WP_GOOGLE_SERVICE_ACCOUNT_JSON`. O compartilhamento da **pasta exclusiva West Jupiter** com essa conta de serviço continua obrigatório: não é permitido reutilizar documentos de outra unidade.
+
+O binding `WJ_DRIVE_ROOT_ID` é recomendado; se ausente, a API procura exclusivamente uma pasta acessível chamada `WEST JUPITER — DIGITAL RECORDS (NR-13)`, exigindo resultado único. Ausência/duplicidade gera erro explícito, nunca uma lista vazia falsa.
+
+A atualização da branch `shimmer-cloudflare` no repositório privado `orangecodedigital-del/wpolaris` corrige o portal Shimmer histórico; a branch `main` do `wjupiter` contém a versão correspondente. Verifique no Cloudflare Pages o deploy ligado ao endereço utilizado pelo usuário, incluindo o binding `DB` e as credenciais de produção. Não é possível conferir o conteúdo autenticado sem uma sessão real.
