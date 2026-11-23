@@ -73,6 +73,14 @@ async function doLogin(context,secret,password){
 }
 export async function onRequest(context){
  const {request,env}=context,path=new URL(request.url).pathname;
+ // Rota pública sem informações internas, destinada exclusivamente a verificar
+ // a versão publicada. APIs e documentos continuam exigindo sessão válida.
+ if(path==="/wjupiter/version"&&request.method==="GET"){
+  return protectedResponse(Response.json({
+   unit:"West Jupiter",version:"drive-private-20261123-v3",status:"site-code-loaded",
+   documents:"authentication-required"
+  },{headers:{"Content-Type":"application/json; charset=utf-8"}}));
+ }
  const secret=env.WJ_SESSION_SECRET||env.SHIMMER_SESSION_SECRET,password=env.WJ_PORTAL_PASSWORD;
  const configured=Boolean(env.DB&&typeof secret==="string"&&secret.length>=32&&typeof password==="string"&&password.length>=7);
  if(!configured){
