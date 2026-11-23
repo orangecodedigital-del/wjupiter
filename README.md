@@ -18,6 +18,10 @@ A branch **main** deste repositório contém agora a interface do portal em `pub
 - As rotas do site e as APIs exigem login de unidade, cookie assinado e limitação de tentativas no banco D1.
 - Ausência de um PDF no pacote não comprova que o documento não existe.
 
+## Publicação no site Shimmer
+
+A versão integrada também foi aplicada à branch `shimmer-cloudflare` do repositório **privado** `orangecodedigital-del/wpolaris`, que fornece a rota `/wjupiter/` no Shimmer histórico. Esse ajuste altera somente a área Jupiter. O código de ambas as versões consulta o Drive privado, sem carregar PDFs no GitHub. A efetiva ativação do catálogo exige que a conta de serviço usada pela Cloudflare tenha acesso à pasta do Drive.
+
 ## Ativação
 Consultar [docs/INTEGRACAO_DRIVE_PRIVADO.md](docs/INTEGRACAO_DRIVE_PRIVADO.md) para parâmetros de Cloudflare Pages, compartilhamento de pasta e testes de segurança. A conexão fica fechada até configurar os segredos e o binding D1.
 
